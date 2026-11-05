@@ -1,0 +1,19 @@
+REPRENDRE LE CONTRÔLE — PWA
+
+Contenu :
+- index.html : application complète (HTML, CSS et JavaScript intégrés)
+- manifest.webmanifest : paramètres d'installation PWA
+- sw.js : mise en cache pour le fonctionnement hors ligne
+- icon.svg : icône de l'application
+
+Installation :
+1. Héberger le contenu du dossier sur une adresse HTTPS (par exemple GitHub Pages).
+2. Ouvrir cette adresse dans Chrome sur Android.
+3. Ouvrir le menu ⋮ puis choisir « Installer l'application » ou « Ajouter à l'écran d'accueil ».
+4. Ouvrir l'application une première fois avec Internet. Les ressources sont ensuite mises en cache.
+5. Les habitudes et bilans sont sauvegardés localement sur l'appareil.
+
+Important :
+- Le service worker et l'installation PWA nécessitent HTTPS (ou localhost). Ouvrir index.html directement depuis le gestionnaire de fichiers ne permet pas d'activer le mode PWA hors ligne.
+- Les données sont stockées dans le navigateur/appareil. Effacer les données du navigateur peut les supprimer. Utiliser « Exporter mes données » pour garder une copie.
+- Aucun compte ni serveur de synchronisation n'est inclus.

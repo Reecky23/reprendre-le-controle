@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#101713">
+<meta name="description" content="Ton assistant personnel de discipline et de productivité.">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<title>Reprendre le contrôle</title>
+<style>
+:root{color-scheme:dark;--bg:#0d1410;--panel:#151f19;--panel2:#1c2921;--line:#29382e;--text:#f2f7f2;--muted:#a1b0a5;--green:#68d391;--green2:#2fa66a;--amber:#f5c66b;--red:#ef8585;--radius:20px}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 90% -10%,#1d3928 0,transparent 36%),var(--bg);color:var(--text);font:15px/1.5 system-ui,-apple-system,Segoe UI,sans-serif;min-height:100vh}
+button,input,textarea{font:inherit}button{cursor:pointer}.app{max-width:920px;margin:auto;padding:20px 16px 44px}
+header{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:6px 0 22px}.brand{display:flex;align-items:center;gap:12px}.logo{width:44px;height:44px;border-radius:14px;background:linear-gradient(145deg,#8be2a8,#278c56);display:grid;place-items:center;color:#092012;font-weight:900;font-size:22px;box-shadow:0 8px 25px #1d8e5140}.eyebrow{font-size:11px;letter-spacing:.16em;color:var(--green);font-weight:800}.brand h1{font-size:17px;line-height:1.1;margin:3px 0}.date{color:var(--muted);font-size:12px;text-align:right}
+.hero{background:linear-gradient(125deg,#1b3023,#15221a 68%,#1d3828);border:1px solid #34513c;border-radius:26px;padding:22px;display:grid;grid-template-columns:1fr auto;gap:14px;align-items:center;box-shadow:0 18px 50px #0003}
+.hero h2{font-size:clamp(24px,5vw,34px);line-height:1.08;margin:8px 0}.hero p{margin:0;color:#c0d0c4;max-width:490px}.ring{width:104px;height:104px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--green) var(--progress,0%),#34483a 0);position:relative}.ring:before{content:"";position:absolute;inset:8px;background:#17271d;border-radius:50%}.ring strong{position:relative;font-size:21px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0 24px}.stat,.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius)}.stat{padding:14px}.stat span{display:block;color:var(--muted);font-size:12px}.stat strong{font-size:23px;display:block;margin-top:3px}
+.section-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:25px 0 12px}.section-head h3{font-size:18px;margin:0}.sub{color:var(--muted);font-size:12px}
+.btn{border:1px solid var(--line);background:var(--panel2);color:var(--text);padding:10px 14px;border-radius:12px;font-weight:650}.btn.primary{background:var(--green);color:#092012;border-color:var(--green)}.btn.small{padding:7px 10px;font-size:12px}.btn.ghost{background:transparent}.btn:active{transform:scale(.98)}
+.habits{display:grid;gap:10px}.habit{display:flex;align-items:center;gap:12px;padding:15px;background:var(--panel);border:1px solid var(--line);border-radius:17px}.habit.done{border-color:#386b49;background:#17271d}.check{width:25px;height:25px;flex:0 0 25px;border:2px solid #607367;border-radius:8px;display:grid;place-items:center;background:transparent;color:#092012}.done .check{background:var(--green);border-color:var(--green)}.check svg{width:16px}.habit-main{flex:1;min-width:0}.habit-title{font-weight:700}.habit-desc{font-size:12px;color:var(--muted);margin-top:2px}.habit-actions{display:flex;gap:5px}.iconbtn{border:0;background:transparent;color:var(--muted);padding:7px;border-radius:9px}.iconbtn:hover{background:var(--panel2);color:var(--text)}
+.two{display:grid;grid-template-columns:1.05fr .95fr;gap:12px}.card{padding:17px}.card h3{margin:0 0 5px;font-size:16px}.card p{color:var(--muted);font-size:12px;margin:0 0 13px}
+textarea,input{width:100%;background:#0e1711;border:1px solid var(--line);border-radius:12px;color:var(--text);padding:11px;outline:none}textarea{min-height:76px;resize:vertical}textarea:focus,input:focus{border-color:var(--green)}
+.field{margin-top:10px}.field label{display:block;font-size:12px;color:#c1cec4;margin-bottom:6px}
+.timer{font-size:42px;font-weight:800;letter-spacing:.04em;text-align:center;margin:10px 0 14px;font-variant-numeric:tabular-nums}.timer-controls{display:flex;justify-content:center;gap:8px;flex-wrap:wrap}.mode{display:flex;gap:6px;justify-content:center}.mode button{font-size:12px;padding:7px 10px}.mode .active{border-color:var(--green);color:var(--green)}
+.week{display:grid;grid-template-columns:repeat(7,1fr);gap:7px;margin-top:12px}.day{background:#0e1711;border-radius:12px;padding:9px 3px;text-align:center;border:1px solid var(--line)}.day span{font-size:10px;color:var(--muted);display:block}.day strong{font-size:13px;display:block;margin-top:5px}.day.good{border-color:#39744d;background:#17291e}
+.reflection{margin-top:13px}.message{border-left:3px solid var(--green);padding:10px 12px;background:#17271d;color:#d4e6d8;border-radius:0 12px 12px 0;font-size:13px;margin-top:14px}
+footer{text-align:center;color:#728278;font-size:11px;margin-top:28px}
+.modal{position:fixed;inset:0;background:#0009;display:none;align-items:center;justify-content:center;padding:18px;z-index:10}.modal.show{display:flex}.dialog{width:min(440px,100%);background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:20px}.dialog h3{margin-top:0}.dialog-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:15px}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#e0f5e7;color:#102017;padding:10px 16px;border-radius:99px;font-size:13px;font-weight:700;opacity:0;pointer-events:none;transition:.2s;z-index:20}.toast.show{opacity:1}
+@media(max-width:620px){.app{padding:15px 13px 32px}.hero{padding:18px}.ring{width:82px;height:82px}.stats{gap:7px}.stat{padding:11px}.stat strong{font-size:20px}.two{grid-template-columns:1fr}.section-head{align-items:flex-end}.habit{padding:13px}.date{max-width:105px}}
+</style>
+</head>
+<body>
+<div class="app">
+<header>
+ <div class="brand"><div class="logo">R</div><div><div class="eyebrow">TON ASSISTANT PERSONNEL</div><h1>REPRENDRE LE CONTRÔLE</h1></div></div>
+ <div class="date" id="todayLabel"></div>
+</header>
+<section class="hero">
+ <div><div class="eyebrow">UN JOUR À LA FOIS</div><h2>Ta discipline.<br>Ton évolution.</h2><p id="encouragement">Tu n'as pas besoin d'être parfait. Tu as juste besoin de recommencer.</p></div>
+ <div class="ring" id="progressRing" style="--progress:0%"><strong id="progressText">0%</strong></div>
+</section>
+<div class="stats">
+ <div class="stat"><span>Habitudes du jour</span><strong id="habitCount">0/5</strong></div>
+ <div class="stat"><span>Régularité actuelle</span><strong id="streak">0 j</strong></div>
+ <div class="stat"><span>Réussite sur 7 jours</span><strong id="weeklyRate">0%</strong></div>
+</div>
+
+<div class="section-head"><div><h3>Mes engagements du jour</h3><div class="sub">Coche chaque action lorsque tu l'as réalisée.</div></div><button class="btn small" id="addHabit">＋ Ajouter</button></div>
+<div class="habits" id="habitsList"></div>
+
+<div class="section-head"><div><h3>Mon espace de progression</h3><div class="sub">Concentration et recul sur ta journée.</div></div></div>
+<div class="two">
+ <section class="card">
+  <h3>Mode concentration</h3><p>Une tâche à la fois. Éloigne les distractions.</p>
+  <div class="mode"><button class="btn small active" data-mode="focus">Travail · 25 min</button><button class="btn small" data-mode="break">Pause · 5 min</button></div>
+  <div class="timer" id="timer">25:00</div>
+  <div class="timer-controls"><button class="btn primary" id="timerStart">Démarrer</button><button class="btn" id="timerReset">Réinitialiser</button></div>
+  <div class="message" id="timerMessage">Ton prochain progrès commence maintenant.</div>
+ </section>
+ <section class="card">
+  <h3>Ma semaine</h3><p>Les sept derniers jours, en un coup d'œil.</p>
+  <div class="week" id="weekView"></div>
+  <div class="sub" style="margin-top:12px">Une journée imparfaite n'efface pas tes progrès.</div>
+ </section>
+</div>
+
+<div class="section-head"><div><h3>Mon bilan du jour</h3><div class="sub">Comprendre, ajuster, recommencer.</div></div><span class="sub" id="savedLabel">Sauvegarde automatique</span></div>
+<section class="card reflection">
+ <div class="field"><label for="obstacle">Quel a été mon principal obstacle aujourd'hui ?</label><textarea id="obstacle" placeholder="Ex. J'ai passé trop de temps sur les réseaux sociaux..."></textarea></div>
+ <div class="field"><label for="lost">Qu'est-ce qui m'a fait perdre du temps ou de la concentration ?</label><textarea id="lost" placeholder="Ex. Les notifications, le manque de planification..."></textarea></div>
+ <div class="field"><label for="tomorrow">Qu'est-ce que je vais améliorer demain ?</label><textarea id="tomorrow" placeholder="Ex. Laisser mon téléphone dans une autre pièce pendant mes révisions..."></textarea></div>
+ <div style="display:flex;justify-content:flex-end;margin-top:12px"><button class="btn primary" id="saveJournal">Enregistrer mon bilan</button></div>
+</section>
+
+<div class="section-head"><div><h3>Historique récent</h3><div class="sub">Tes résultats des 7 derniers jours.</div></div><button class="btn small ghost" id="exportData">Exporter mes données</button></div>
+<section class="card" id="history"></section>
+<footer>REPRENDRE LE CONTRÔLE · La régularité avant la perfection.</footer>
+</div>
+
+<div class="modal" id="habitModal"><div class="dialog"><h3 id="modalTitle">Ajouter une habitude</h3><div class="field"><label for="habitName">Nom de l'habitude</label><input id="habitName" maxlength="55" placeholder="Ex. Lire 10 pages"></div><div class="field"><label for="habitDesc">Description</label><input id="habitDesc" maxlength="120" placeholder="Une petite action concrète"></div><div class="dialog-actions"><button class="btn" id="cancelModal">Annuler</button><button class="btn primary" id="saveHabit">Enregistrer</button></div></div></div>
+<div class="toast" id="toast"></div>
+<script>
+const DEFAULT_HABITS=[
+ {id:'phone',name:'Maîtriser mon téléphone',desc:'Éviter les réseaux sociaux pendant les 30 premières minutes de la journée.'},
+ {id:'study',name:'Travailler avec concentration',desc:'Faire au moins deux sessions de 25 minutes sans distraction.'},
+ {id:'priority',name:'Avancer sur une priorité',desc:'Accomplir une tâche importante pour mes études ou mes projets.'},
+ {id:'routine',name:'Être régulier',desc:'Consacrer 15 minutes à la lecture, à l’apprentissage ou à la réflexion.'},
+ {id:'sleep',name:'Protéger mon temps',desc:'Éviter de perdre inutilement du temps sur mon téléphone avant de dormir.'}
+];
+const $=id=>document.getElementById(id);
+const today=()=>new Date().toLocaleDateString('en-CA');
+const dateKey=today();
+let data=loadData(), editingId=null, timerMode='focus', remaining=1500, interval=null, running=false;
+function loadData(){try{return JSON.parse(localStorage.getItem('rtc-data'))||{habits:DEFAULT_HABITS,days:{}}}catch(e){return {habits:DEFAULT_HABITS,days:{}}}}
+function persist(){localStorage.setItem('rtc-data',JSON.stringify(data))}
+function dayData(key=dateKey){if(!data.days[key])data.days[key]={done:[],journal:{obstacle:'',lost:'',tomorrow:''}};return data.days[key]}
+function escapeHTML(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function notify(msg){$('toast').textContent=msg;$('toast').classList.add('show');setTimeout(()=>$('toast').classList.remove('show'),2100)}
+function render(){
+ const d=dayData(),total=data.habits.length,done=d.done.length,pct=total?Math.round(done/total*100):0;
+ $('todayLabel').textContent=new Date().toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+ $('progressRing').style.setProperty('--progress',pct+'%');$('progressText').textContent=pct+'%';$('habitCount').textContent=done+'/'+total;
+ $('encouragement').textContent=pct===100?'Bravo ! Tu as tenu tes engagements aujourd’hui. Savoure ce progrès.':done>0?'Tu avances. Continue à transformer tes intentions en petites actions.':'Tu n’as pas besoin d’être parfait. Commence par une petite action.';
+ $('habitsList').innerHTML=data.habits.map(h=>{let checked=d.done.includes(h.id);return `<article class="habit ${checked?'done':''}"><button class="check" aria-label="Marquer comme accomplie" data-check="${escapeHTML(h.id)}">${checked?'✓':''}</button><div class="habit-main"><div class="habit-title">${escapeHTML(h.name)}</div><div class="habit-desc">${escapeHTML(h.desc||'')}</div></div><div class="habit-actions"><button class="iconbtn" title="Modifier" data-edit="${escapeHTML(h.id)}">✎</button><button class="iconbtn" title="Supprimer" data-delete="${escapeHTML(h.id)}">×</button></div></article>`}).join('')||'<div class="card">Ajoute une première habitude pour commencer.</div>';
+ $('obstacle').value=d.journal.obstacle||'';$('lost').value=d.journal.lost||'';$('tomorrow').value=d.journal.tomorrow||'';
+ renderStats();renderWeek();renderHistory();
+}
+function keys(n){let a=[];for(let i=n-1;i>=0;i--){let x=new Date();x.setDate(x.getDate()-i);a.push(x.toLocaleDateString('en-CA'))}return a}
+function renderStats(){
+ let ks=keys(7),sum=0,max=0,streak=0,started=false;
+ ks.forEach(k=>{let dd=data.days[k],total=data.habits.length;sum+=total?Math.min((dd?.done?.length||0)/total,1):0});
+ let cursor=new Date();for(let i=0;i<365;i++){let k=cursor.toLocaleDateString('en-CA'),dd=data.days[k];if(dd&&dd.done.length){streak++;cursor.setDate(cursor.getDate()-1)}else if(i===0){cursor.setDate(cursor.getDate()-1)}else break}
+ $('streak').textContent=streak+' j';$('weeklyRate').textContent=Math.round(sum/7*100)+'%';
+}
+function renderWeek(){
+ $('weekView').innerHTML=keys(7).map(k=>{let dd=data.days[k],pct=data.habits.length?Math.round((dd?.done?.length||0)/data.habits.length*100):0;let dt=new Date(k+'T12:00:00');return `<div class="day ${pct>=60?'good':''}"><span>${dt.toLocaleDateString('fr-FR',{weekday:'short'}).slice(0,2)}</span><strong>${pct}%</strong></div>`}).join('');
+}
+function renderHistory(){
+ let ks=keys(7).reverse();$('history').innerHTML=ks.map(k=>{let dd=data.days[k],n=dd?.done?.length||0,dt=new Date(k+'T12:00:00');return `<div style="display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px solid var(--line)"><span>${dt.toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'short'})}</span><strong>${n}/${data.habits.length}</strong></div>`}).join('');
+}
+$('habitsList').addEventListener('click',e=>{
+ let check=e.target.closest('[data-check]'),edit=e.target.closest('[data-edit]'),del=e.target.closest('[data-delete]');
+ if(check){let d=dayData(),id=check.dataset.check;d.done=d.done.includes(id)?d.done.filter(x=>x!==id):[...d.done,id];persist();render()}
+ if(edit)openModal(edit.dataset.edit);
+ if(del){let h=data.habits.find(x=>x.id===del.dataset.delete);if(confirm(`Supprimer l’habitude « ${h.name} » ?`)){data.habits=data.habits.filter(x=>x.id!==h.id);Object.values(data.days).forEach(d=>d.done=d.done.filter(x=>x!==h.id));persist();render()}}
+});
+function openModal(id=null){editingId=id;let h=id?data.habits.find(x=>x.id===id):null;$('modalTitle').textContent=h?'Modifier une habitude':'Ajouter une habitude';$('habitName').value=h?.name||'';$('habitDesc').value=h?.desc||'';$('habitModal').classList.add('show');$('habitName').focus()}
+$('addHabit').onclick=()=>openModal();$('cancelModal').onclick=()=>$('habitModal').classList.remove('show');
+$('saveHabit').onclick=()=>{let name=$('habitName').value.trim(),desc=$('habitDesc').value.trim();if(!name){notify('Donne un nom à ton habitude.');return}if(editingId){let h=data.habits.find(x=>x.id===editingId);h.name=name;h.desc=desc}else data.habits.push({id:'h'+Date.now(),name,desc});persist();$('habitModal').classList.remove('show');render();notify('Habitude enregistrée.')};
+$('saveJournal').onclick=()=>{let d=dayData();d.journal={obstacle:$('obstacle').value,lost:$('lost').value,tomorrow:$('tomorrow').value};persist();$('savedLabel').textContent='Enregistré ✓';notify('Ton bilan est enregistré.')};
+$('exportData').onclick=()=>{let blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='reprendre-le-controle-donnees.json';a.click();URL.revokeObjectURL(url)};
+function setMode(mode){timerMode=mode;remaining=mode==='focus'?1500:300;stopTimer();$('timer').textContent=formatTime(remaining);document.querySelectorAll('[data-mode]').forEach(b=>b.classList.toggle('active',b.dataset.mode===mode));$('timerMessage').textContent=mode==='focus'?'Une tâche à la fois. Éloigne les distractions.':'Tu as le droit de souffler. Reviens avec énergie.'}
+function formatTime(s){return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0')}
+function stopTimer(){if(interval)clearInterval(interval);interval=null;running=false;$('timerStart').textContent='Démarrer'}
+function startTimer(){if(running){stopTimer();return}running=true;$('timerStart').textContent='Pause';interval=setInterval(()=>{remaining--; $('timer').textContent=formatTime(remaining);if(remaining<=0){stopTimer();$('timerMessage').textContent=timerMode==='focus'?'Session terminée. Prends une pause bien méritée !':'Pause terminée. Tu peux reprendre.';notify(timerMode==='focus'?'Bravo pour ta session !':'Fin de la pause.');if('vibrate'in navigator)navigator.vibrate([150,80,150])}},1000)}
+document.querySelectorAll('[data-mode]').forEach(b=>b.onclick=()=>setMode(b.dataset.mode));$('timerStart').onclick=startTimer;$('timerReset').onclick=()=>{stopTimer();remaining=timerMode==='focus'?1500:300;$('timer').textContent=formatTime(remaining)};
+render();
+if('serviceWorker'in navigator && location.protocol.startsWith('http'))window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));
+</script>
+</body>
+</html>
